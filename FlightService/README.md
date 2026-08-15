@@ -271,28 +271,3 @@ Flight Service
 
 The Flight Service communicates through REST APIs where direct request/response behaviour is required and uses Kafka for asynchronous seat reservation events.
 
-## 11. Project Structure
-
-```text
-FlightService/
-├── src/
-│   ├── main/
-│   │   ├── java/com/skybook/flightservice/
-│   │   │   ├── config/
-│   │   │   ├── controller/
-│   │   │   ├── entity/
-│   │   │   ├── enums/
-│   │   │   ├── event/
-│   │   │   ├── kafka/
-│   │   │   ├── repository/
-│   │   │   └── service/
-│   │   └── resources/
-│   │       └── application.properties
-│   └── test/
-├── pom.xml
-└── README.md
-```
-
-## 12. Relationship to Assignment Requirements
-
-The Flight Service contributes to the project requirements by providing the flight bounded context, implementing FR-04 to FR-06, using a dedicated H2 database, exposing REST APIs for synchronous requests, and consuming Apache Kafka events for asynchronous seat reservation processing.
