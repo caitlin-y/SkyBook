@@ -4,7 +4,7 @@ The Flight Service is one of the four microservices in the SkyBook Airline Ticke
 
 ## 1. Service Responsibility
 
-The Flight Service represents the **Flight bounded context** of the system. Its main responsibilities are:
+The Flight Service  main responsibilities are:
 
 - Managing flight information and schedules
 - Searching for available flights
@@ -49,7 +49,7 @@ http://localhost:8082/api/flights
 
 ### FR-04 - Search Available Flights
 
-**Method:** `GET`
+**Method:** GET
 
 **Endpoint:**
 
@@ -63,11 +63,11 @@ GET /api/flights/search?origin={origin}&destination={destination}
 GET http://localhost:8082/api/flights/search?origin=KUL&destination=SIN
 ```
 
-The endpoint uses `origin` and `destination` as request parameters and returns matching flight information.
+The endpoint uses origin and destination as request parameters and returns matching flight information.
 
 ### FR-05 - View Flight Schedule
 
-**Method:** `GET`
+**Method:** GET
 
 **Endpoint:**
 
@@ -85,7 +85,7 @@ The endpoint uses the flight ID as a path variable and returns the corresponding
 
 ### FR-06 - Check Seat Availability
 
-**Method:** `GET`
+**Method:** GET
 
 **Endpoint:**
 
@@ -123,15 +123,15 @@ H2 Database
 
 ### Controller
 
-`FlightController` exposes the REST API endpoints for FR-04, FR-05 and FR-06.
+FlightController exposes the REST API endpoints for FR-04, FR-05 and FR-06.
 
 ### Service
 
-`FlightService` contains the application logic for searching flights, retrieving a flight schedule, and retrieving seats for a selected flight.
+FlightService contains the application logic for searching flights, retrieving a flight schedule, and retrieving seats for a selected flight.
 
 ### Repository
 
-The repositories provide database access for `Flight` and `Seat` entities through Spring Data JPA.
+The repositories provide database access for Flight and Seat entities through Spring Data JPA.
 
 ### Entities
 
@@ -139,7 +139,7 @@ The main domain entities are:
 
 - `Flight` - stores flight number, origin, destination, departure time and arrival time.
 - `Seat` - stores seat number, seat class, seat status and its associated flight.
-- `SeatStatus` - represents the current status of a seat, such as `AVAILABLE` or `RESERVED`.
+- `SeatStatus` - represents the current status of a seat, such as AVAILABLE or RESERVED.
 
 A `Flight` can have multiple `Seat` records, while each `Seat` is associated with one flight.
 
@@ -249,25 +249,6 @@ Recommended tests:
 1. **FR-04:** Search for a flight using an origin and destination and verify that matching flight information is returned.
 2. **FR-05:** Provide a valid flight ID and verify that the selected flight schedule is returned.
 3. **FR-06:** Provide a valid flight ID and verify that the associated seats and their statuses are returned.
-4. **Kafka Seat Reservation:** Check a seat's status, create a booking that publishes a `SeatReservationRequestedEvent`, and verify that the Flight Service processes the event and changes the seat status from `AVAILABLE` to `RESERVED`.
+4. **Kafka Seat Reservation:** Check a seat's status, create a booking that publishes a `SeatReservationRequestedEvent`, and verify that the Flight Service processes the event and changes the seat status from AVAILABLE to RESERVED.
 
-## 10. Project Integration
-
-The Flight Service forms part of the wider SkyBook microservice architecture:
-
-```text
-Passenger Service
-        |
-        v
-Booking Service <---- REST ----> Flight Service
-        |
-        | Kafka event
-        v
-     Kafka
-        |
-        v
-Flight Service
-```
-
-The Flight Service communicates through REST APIs where direct request/response behaviour is required and uses Kafka for asynchronous seat reservation events.
 
